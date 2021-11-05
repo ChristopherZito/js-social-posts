@@ -14,29 +14,30 @@
 
 let like ;
 let date ;
+let imgRand ;
 
 
 //creazione array di post
 const post = [
     {
         "nomeAutore":"Gianni Panni",
-        "fotoProfilo":"https://unsplash.it/300/300?image=32",
+        "fotoProfilo":"https://unsplash.it/300/300?image=",
         "data":date,
         "testoPost":"Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        "immagineBase":"https://unsplash.it/300/300?image=53",
+        "immagineBase":"https://unsplash.it/300/300?image=",
         "numeroLike":like,
     },
     {
         "nomeAutore":"Paldi Giandi",
-        "fotoProfilo":"https://unsplash.it/300/300?image=312",
+        "fotoProfilo":"https://unsplash.it/300/300?image=",
         "data":date,
         "testoPost":"Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        "immagineBase":"https://unsplash.it/300/300?image=434",
+        "immagineBase":"https://unsplash.it/300/300?image=",
         "numeroLike":like,
     },
     {
         "nomeAutore":"Poldo Sordo",
-        "fotoProfilo":"https://unsplash.it/300/300?image=15",
+        "fotoProfilo":"https://unsplash.it/300/300?image=",
         "data":date,
         "testoPost":"Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "numeroLike":like,
@@ -54,6 +55,9 @@ for(let i = 0; i < post.length; i++){
     date = Math.floor(Math.random()* 12) + 1;
     post[i].data = date;
 
+    imgRand = Math.floor(Math.random()* 380) + 1;
+    
+
     const {nomeAutore, fotoProfilo, data, testoPost,numeroLike} = post[i];
     //console.log(nomeAutore, fotoProfilo, data, testoPost,numeroLike);
 
@@ -70,7 +74,7 @@ for(let i = 0; i < post.length; i++){
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${fotoProfilo}" alt="${nomeAutore}">                    
+                        <img class="profile-pic" src="${fotoProfilo}${imgRand}" alt="${nomeAutore}">                    
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${nomeAutore}</div>
@@ -80,12 +84,12 @@ for(let i = 0; i < post.length; i++){
             </div>
             <div class="post__text">${testoPost}</div>
             <div class="post__image">
-                <img src="${immagineBase}" alt=""></img>
+                <img src="${immagineBase}${imgRand}" alt=""></img>
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" href="#" id="${i}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -102,7 +106,7 @@ for(let i = 0; i < post.length; i++){
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${fotoProfilo}" alt="${nomeAutore}">                    
+                        <img class="profile-pic" src="${fotoProfilo}${imgRand}" alt="${nomeAutore}">                    
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${nomeAutore}</div>
@@ -116,7 +120,7 @@ for(let i = 0; i < post.length; i++){
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" href="#" id="${i}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -130,5 +134,20 @@ for(let i = 0; i < post.length; i++){
     }
 
     inPage.innerHTML += postUser;
+    
 }
+for(let i = 0; i < post.length; i++){
+    //mettere like
+    const button = document.getElementById(i);
+    const btn = document.querySelector(".like-button__label");
+    const icon = document.querySelector(".like-button__icon");
+    console.log(button);
 
+    button.addEventListener("click", function(){
+        console.log("hai messo like");
+        btn.classList.replace("like-button__label" , "like-button--liked")
+        /* icon.style.color = "green"; */
+        like++;
+        console.log(like);
+    })
+}
