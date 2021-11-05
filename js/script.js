@@ -11,7 +11,7 @@
 
 
 
-
+//variabili casuali per foto, data e like
 let like ;
 let date ;
 let imgRand ;
@@ -55,7 +55,7 @@ for(let i = 0; i < post.length; i++){
     date = Math.floor(Math.random()* 12) + 1;
     post[i].data = date;
 
-    imgRand = Math.floor(Math.random()* 380) + 1;
+    imgRand = Math.floor(Math.random()* 200) + 1;
     
 
     const {nomeAutore, fotoProfilo, data, testoPost,numeroLike} = post[i];
@@ -89,13 +89,13 @@ for(let i = 0; i < post.length; i++){
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" id="${i}">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
+                        <a class="like-button  js-like-button"  id="${i}">
+                            <i class="like-button__icon${i} fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label${i}">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${numeroLike}</b> persone
+                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${numeroLike}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -120,13 +120,13 @@ for(let i = 0; i < post.length; i++){
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" id="${i}">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
+                        <a class="like-button  js-like-button"  id="${i}">
+                            <i class="like-button__icon${i} fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label${i}">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${numeroLike}</b> persone
+                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${numeroLike}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -135,19 +135,40 @@ for(let i = 0; i < post.length; i++){
 
     inPage.innerHTML += postUser;
     
+   
+    
+    
 }
-for(let i = 0; i < post.length; i++){
-    //mettere like
-    const button = document.getElementById(i);
-    const btn = document.querySelector(".like-button__label");
-    const icon = document.querySelector(".like-button__icon");
-    console.log(button);
 
+//mettere like
+ for(let i = 0; i < post.length; i++){
+
+    //lettura click per il like
+    let button = document.getElementById(i);
+    console.log(button);
+    
     button.addEventListener("click", function(){
-        console.log("hai messo like");
-        btn.classList.replace("like-button__label" , "like-button--liked")
-        /* icon.style.color = "green"; */
-        like++;
-        console.log(like);
+        //console.log("hai messo like"); controlllo per la presenza nel click
+        //console.log("hai schiacciato il bottone ", button);
+
+        //cambio like
+        let likess = document.getElementById(`like-counter-${i}`);
+
+        //variabili per il cambio di colore
+        let btn = document.querySelector(`.like-button__label${i}`);
+        let icon = document.querySelector(`.like-button__icon${i}`); 
+        // console.log(btn, "    " , icon);
+        // console.log(like);
+
+        //cambio di colore
+        btn.classList.remove(`like-button__label${i}`);
+        btn.classList.add(`like-button--liked${i}`);
+        btn.style.color = "green";
+        icon.style.color = "green";  
+        
+        //incremento variabile like  
+        post[i].numeroLike++;
+        likess.innerHTML = post[i].numeroLike; 
+        // console.log(post[i].numeroLike, "like oggetto");
     })
 }
